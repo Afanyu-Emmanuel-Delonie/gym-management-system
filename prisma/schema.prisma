@@ -5,7 +5,7 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../app/generated/prisma"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -58,6 +58,7 @@ model Profile{
   bookings            Booking[]       @relation("ClientBookings")
   clientAppointments  Appointment[]   @relation("ClientAppointments")
   coachAppointments   Appointment[]   @relation("CoachAppointments")
+  testimonials        Testimonial[]
 }
 
 // --- GYM & COACHES ---
@@ -143,6 +144,31 @@ model AccessCode {
   isUsed    Boolean  @default(false)
 }
 
+// --- UTILITIES ---
+
+model GymService {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  icon        String?  // icon name or URL
+  image       String?
+  price       Decimal? @db.Decimal(10, 2) // null = price on request
+  isActive    Boolean  @default(true)
+  order       Int      @default(0) // display order
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Testimonial {
+  id          String   @id @default(cuid())
+  profileId   String
+  profile     Profile  @relation(fields: [profileId], references: [id])
+  content     String
+  rating      Int      // 1-5
+  isApproved  Boolean  @default(false) // admin must approve before showing
+  createdAt   DateTime @default(now())
+}
+
 // --- E-COMMERCE ---
 
 enum OrderStatus {
@@ -150,13 +176,34 @@ enum OrderStatus {
   PAID
   PROCESSING
   SHIPPED
+  DELIVERED
   COMPLETED
   CANCELLED
+  REFUNDED
 }
 
 enum DeliveryType {
   PICKUP
   DELIVERY
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED
+}
+
+model Discount {
+  id          String       @id @default(cuid())
+  code        String       @unique
+  type        DiscountType
+  value       Decimal      @db.Decimal(10, 2) // e.g. 10 = 10% or 10 RWF off
+  minOrder    Decimal?     @db.Decimal(10, 2) // minimum order amount to apply
+  maxUses     Int?         // null = unlimited
+  usedCount   Int          @default(0)
+  isActive    Boolean      @default(true)
+  expiresAt   DateTime?
+  createdAt   DateTime     @default(now())
+  orders      Order[]
 }
 
 model Product {
@@ -167,20 +214,28 @@ model Product {
   stock       Int         @default(0)
   category    String
   image       String?
+  isActive    Boolean     @default(true)
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
   orderItems  OrderItem[]
 }
 
 model Order {
-  id           String       @id @default(cuid())
-  clientId     String
-  client       Profile      @relation("ClientOrders", fields: [clientId], references: [id])
-  totalAmount  Decimal      @db.Decimal(10, 2)
-  status       OrderStatus  @default(PENDING)
-  deliveryType DeliveryType @default(PICKUP)
-  items        OrderItem[]
-  createdAt    DateTime     @default(now())
+  id              String       @id @default(cuid())
+  clientId        String
+  client          Profile      @relation("ClientOrders", fields: [clientId], references: [id])
+  totalAmount     Decimal      @db.Decimal(10, 2)
+  discountAmount  Decimal      @db.Decimal(10, 2) @default(0)
+  finalAmount     Decimal      @db.Decimal(10, 2)
+  status          OrderStatus  @default(PENDING)
+  deliveryType    DeliveryType @default(PICKUP)
+  deliveryAddress String?
+  discountId      String?
+  discount        Discount?    @relation(fields: [discountId], references: [id])
+  delivery        Delivery?
+  items           OrderItem[]
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
 }
 
 model OrderItem {
@@ -191,4 +246,16 @@ model OrderItem {
   product   Product @relation(fields: [productId], references: [id])
   quantity  Int
   price     Decimal @db.Decimal(10, 2)
+}
+
+model Delivery {
+  id             String   @id @default(cuid())
+  orderId        String   @unique
+  order          Order    @relation(fields: [orderId], references: [id])
+  address        String
+  trackingNote   String?
+  estimatedAt    DateTime?
+  deliveredAt    DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }

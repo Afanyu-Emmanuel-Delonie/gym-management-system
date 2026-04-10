@@ -1,6 +1,6 @@
 import { revalidatePath } from "next/cache"
 import prisma from "../../lib/prisma"
-import { SubscriptionType } from "../../../app/generated/prisma"
+import { SubscriptionType } from "../../generated/prisma/client.ts"
 
 export async function createSubscriptionRequest(userId: string, type: SubscriptionType) {
   return await prisma.subscription.create({

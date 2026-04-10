@@ -1,4 +1,6 @@
-import { redirect } from "next/navigation";
+"use server"
+
+import { redirect } from "next/navigation"
 import { createClient } from "../lib/supabase/server";
 import prisma from "../lib/prisma";
 
@@ -8,7 +10,7 @@ export async function signUp(formatData: FormData){
     const email = formatData.get("email") as string
     const password = formatData.get("password") as string
     const fullName = formatData.get("fullName") as string
-    const phoneNumber = formatData.get("phoneNumber")
+    const phoneNumber = formatData.get("phoneNumber") as string | null
 
     const { data, error } = await supabase.auth.signUp({
         email,
@@ -16,7 +18,8 @@ export async function signUp(formatData: FormData){
         options:{
             data: { 
                 full_name : fullName,
-                phone_number : phoneNumber
+                phone_number : phoneNumber,
+                role: "CLIENT"
             }
         }
     })
@@ -56,7 +59,7 @@ export async function login(formData: FormData) {
     case 'ADMIN':
       return redirect('/admin/dashboard')
     case 'SALES_AGENT':
-      return redirect('/agent/verify-codes')
+      return redirect('/agent/dashboard')
     case 'COACH':
       return redirect('/coach/schedule')
     default:
