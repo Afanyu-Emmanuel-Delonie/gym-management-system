@@ -52,10 +52,10 @@ model Profile{
 
   // Relationships 
   subscriptions       Subscription[]
-  orders              Order[]             @relation("ClientOrders")
+  orders              Order[]
   accessCodes         AccessCode[]
-  coachSchedules      Schedule[]      @relation("CoachSchedules")
   bookings            Booking[]       @relation("ClientBookings")
+  coachSchedules      Schedule[]      @relation("CoachSchedules")
   clientAppointments  Appointment[]   @relation("ClientAppointments")
   coachAppointments   Appointment[]   @relation("CoachAppointments")
 }
@@ -92,30 +92,14 @@ model Booking {
 
 // --- LAYER 1: GENERAL ACCESS (Subscriptions) ---
 
-enum SubscriptionType {
-  DAILY
-  WEEKLY
-  MONTHLY
-  YEARLY
-}
-
-enum SubscriptionStatus {
-  PENDING
-  ACTIVE
-  EXPIRED
-  CANCELLED
-}
-
 model Subscription {
-  id         String             @id @default(cuid())
-  profileId  String
-  profile    Profile            @relation(fields: [profileId], references: [id])
-  type       SubscriptionType
-  status     SubscriptionStatus @default(PENDING)
-  accessCode String?            @unique // Generated once on activation
-  startDate  DateTime?
-  endDate    DateTime?
-  createdAt  DateTime           @default(now())
+  id        String   @id @default(cuid())
+  profileId String
+  profile   Profile  @relation(fields: [profileId], references: [id])
+  type      String   // e.g., "DAILY_PASS", "MONTHLY_GYM"
+  status    String   @default(')
+  expiresAt DateTime
+  createdAt DateTime @default(now())
 }
 
 // --- LAYER 2: SPECIALIZED SERVICES (Personal Trainers/Massages) ---
@@ -145,42 +129,24 @@ model AccessCode {
 
 // --- E-COMMERCE ---
 
-enum OrderStatus {
-  PENDING
-  PAID
-  PROCESSING
-  SHIPPED
-  COMPLETED
-  CANCELLED
-}
-
-enum DeliveryType {
-  PICKUP
-  DELIVERY
-}
-
 model Product {
   id          String      @id @default(cuid())
   name        String
-  description String?
   price       Decimal     @db.Decimal(10, 2)
   stock       Int         @default(0)
-  category    String
-  image       String?
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  image       String?     // URL from Supabase Storage
   orderItems  OrderItem[]
 }
 
 model Order {
-  id           String       @id @default(cuid())
-  clientId     String
-  client       Profile      @relation("ClientOrders", fields: [clientId], references: [id])
-  totalAmount  Decimal      @db.Decimal(10, 2)
-  status       OrderStatus  @default(PENDING)
-  deliveryType DeliveryType @default(PICKUP)
-  items        OrderItem[]
-  createdAt    DateTime     @default(now())
+  id          String      @id @default(cuid())
+  profileId   String
+  profile     Profile     @relation(fields: [profileId], references: [id])
+  total       Decimal     @db.Decimal(10, 2)
+  status      String      @default("PENDING") // PENDING, PAID, DELIVERED
+  address     String?     // For delivery
+  items       OrderItem[]
+  createdAt   DateTime    @default(now())
 }
 
 model OrderItem {
@@ -190,5 +156,4 @@ model OrderItem {
   productId String
   product   Product @relation(fields: [productId], references: [id])
   quantity  Int
-  price     Decimal @db.Decimal(10, 2)
 }
