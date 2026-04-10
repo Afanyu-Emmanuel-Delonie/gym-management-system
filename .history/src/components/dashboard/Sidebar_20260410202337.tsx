@@ -4,43 +4,39 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { LayoutDashboard, Users, CreditCard, ShoppingBag, Dumbbell, MessageSquare, QrCode, LogOut } from "lucide-react"
 import { useSidebar } from "./SidebarContext"
-import { NAV_ITEMS } from "@/constants/dashboard"
 
 type Role = "ADMIN" | "SALES_AGENT" | "COACH" | "NUTRITIONIST" | "CLIENT"
 
+const navItems: Record<string, { label: string; href: string; icon: React.ReactNode }[]> = {
+  ADMIN: [
+    { label: "Dashboard",     href: "/admin/dashboard",     icon: <LayoutDashboard size={18} /> },
+    { label: "Staff",         href: "/admin/staff",         icon: <Users size={18} /> },
+    { label: "Subscriptions", href: "/admin/subscriptions", icon: <CreditCard size={18} /> },
+    { label: "Store",         href: "/admin/store",         icon: <ShoppingBag size={18} /> },
+    { label: "Content",       href: "/admin/content",       icon: <MessageSquare size={18} /> },
+  ],
+  SALES_AGENT: [
+    { label: "Dashboard",     href: "/agent/dashboard",     icon: <LayoutDashboard size={18} /> },
+    { label: "Subscriptions", href: "/agent/subscriptions", icon: <CreditCard size={18} /> },
+    { label: "Access",        href: "/agent/access",        icon: <QrCode size={18} /> },
+  ],
+}
+
 export default function Sidebar({ role }: { role: Role }) {
   const pathname = usePathname()
-  const { collapsed, isMobile } = useSidebar()
-  const links = NAV_ITEMS[role] ?? []
-
-  // On mobile: hidden when collapsed, overlay when open
-  // On desktop: shrinks to icon-only when collapsed
-  const mobileHidden = isMobile && collapsed
+  const { collapsed } = useSidebar()
+  const links = navItems[role] ?? []
 
   return (
-    <>
-      {/* Mobile overlay backdrop */}
-      {isMobile && !collapsed && (
-        <div
-          style={{ position: "fixed", inset: 0, backgroundColor: "#00000080", zIndex: 40 }}
-          onClick={() => {}}
-        />
-      )}
-      <aside
-        style={{
-          backgroundColor: "var(--color-sidebar-bg)",
-          width: collapsed ? (isMobile ? "0px" : "64px") : "240px",
-          minWidth: collapsed ? (isMobile ? "0px" : "64px") : "240px",
-          transition: "width 0.2s ease, min-width 0.2s ease",
-          overflow: "hidden",
-          position: isMobile ? "fixed" : "relative",
-          top: isMobile ? 0 : undefined,
-          left: isMobile ? 0 : undefined,
-          height: isMobile ? "100vh" : "100%",
-          zIndex: isMobile ? 50 : undefined,
-        }}
-        className="flex flex-col"
-      >
+    <aside
+      style={{
+        backgroundColor: "var(--color-sidebar-bg)",
+        width: collapsed ? "64px" : "240px",
+        minWidth: collapsed ? "64px" : "240px",
+        transition: "width 0.2s ease, min-width 0.2s ease",
+      }}
+      className="flex flex-col h-full"
+    >
       {/* Logo */}
       <div
         className="flex items-center px-4 py-5"
@@ -64,20 +60,19 @@ export default function Sidebar({ role }: { role: Role }) {
               href={item.href}
               title={collapsed ? item.label : undefined}
               style={{
-                backgroundColor: isActive ? "#ffffff18" : "transparent",
+                backgroundColor: isActive ? "var(--color-sidebar-active)" : "transparent",
                 color: isActive ? "#fff" : "var(--color-sidebar-text)",
                 borderRadius: "var(--radius-md)",
-                fontSize: "var(--text-base)",
+                fontSize: "var(--text-sm)",
                 display: "flex",
                 alignItems: "center",
                 gap: "0.75rem",
-                padding: collapsed ? "0.65rem" : "0.6rem 0.75rem",
+                padding: collapsed ? "0.6rem" : "0.5rem 0.75rem",
                 justifyContent: collapsed ? "center" : "flex-start",
                 whiteSpace: "nowrap",
                 overflow: "hidden",
-                borderLeft: isActive ? "3px solid var(--color-primary)" : "3px solid transparent",
               }}
-              className="font-normal transition-all hover:bg-white/10 hover:text-white"
+              className="font-medium transition-colors hover:bg-white/10"
             >
               <span style={{ flexShrink: 0 }}>{item.icon}</span>
               {!collapsed && <span>{item.label}</span>}
@@ -94,7 +89,11 @@ export default function Sidebar({ role }: { role: Role }) {
             title={collapsed ? "Sign out" : undefined}
             style={{
               color: "var(--color-text-muted)",
-              fontSize: "var(--text-base)",
+              fontSize: "var(--text-sm)",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.75rem",
+              padding: collapsed ? "0.6rem" : "0.5rem 0.75rem",
               justifyContent: collapsed ? "center" : "flex-start",
               width: "100%",
               background: "none",
@@ -104,12 +103,11 @@ export default function Sidebar({ role }: { role: Role }) {
             }}
             className="hover:bg-white/10 hover:text-white transition-colors"
           >
-            <LogOut size={20} style={{ flexShrink: 0 }} />
+            <LogOut size={18} style={{ flexShrink: 0 }} />
             {!collapsed && <span>Sign out</span>}
           </button>
         </form>
       </div>
     </aside>
-    </>
   )
 }

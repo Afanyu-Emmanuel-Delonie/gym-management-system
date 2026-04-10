@@ -75,7 +75,7 @@ model Schedule{
   activityId String 
   activity Activity @relation(fields: [activityId], references: [id])
   coachId String
-  coach       Profile   @relation("CoachSchedules", fields: [coachId], references: [id])
+  coach       Profile   @relation("CoachSchedules", fields: [coachId], references: [id], onDelete: Cascade)
   startTime DateTime
   endTime DateTime
   capacity Int @default(20)
@@ -87,7 +87,7 @@ model Booking {
   scheduleId String
   schedule   Schedule @relation(fields: [scheduleId], references: [id])
   clientId   String
-  client     Profile  @relation("ClientBookings", fields: [clientId], references: [id])
+  client     Profile  @relation("ClientBookings", fields: [clientId], references: [id], onDelete: Cascade)
   createdAt  DateTime @default(now())
 }
 
@@ -110,7 +110,7 @@ enum SubscriptionStatus {
 model Subscription {
   id         String             @id @default(cuid())
   profileId  String
-  profile    Profile            @relation(fields: [profileId], references: [id])
+  profile    Profile            @relation(fields: [profileId], references: [id], onDelete: Cascade)
   type       SubscriptionType
   status     SubscriptionStatus @default(PENDING)
   accessCode String?            @unique // Generated once on activation
@@ -124,9 +124,9 @@ model Subscription {
 model Appointment {
   id            String        @id @default(cuid())
   clientId      String
-  client        Profile       @relation("ClientAppointments", fields: [clientId], references: [id])
+  client        Profile       @relation("ClientAppointments", fields: [clientId], references: [id], onDelete: Cascade)
   coachId       String
-  coach         Profile       @relation("CoachAppointments", fields: [coachId], references: [id])
+  coach         Profile       @relation("CoachAppointments", fields: [coachId], references: [id], onDelete: Cascade)
   serviceType   ServiceType
   scheduledAt   DateTime
   duration      Int           @default(60)
@@ -139,7 +139,7 @@ model AccessCode {
   id        String   @id @default(cuid())
   code      String   @unique // The 6-digit code for the agent to check
   profileId String
-  profile   Profile  @relation(fields: [profileId], references: [id])
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
   expiresAt DateTime
   isUsed    Boolean  @default(false)
 }
@@ -162,7 +162,7 @@ model GymService {
 model Testimonial {
   id          String   @id @default(cuid())
   profileId   String
-  profile     Profile  @relation(fields: [profileId], references: [id])
+  profile     Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
   content     String
   rating      Int      // 1-5
   isApproved  Boolean  @default(false) // admin must approve before showing
@@ -223,7 +223,7 @@ model Product {
 model Order {
   id              String       @id @default(cuid())
   clientId        String
-  client          Profile      @relation("ClientOrders", fields: [clientId], references: [id])
+  client          Profile      @relation("ClientOrders", fields: [clientId], references: [id], onDelete: Cascade)
   totalAmount     Decimal      @db.Decimal(10, 2)
   discountAmount  Decimal      @db.Decimal(10, 2) @default(0)
   finalAmount     Decimal      @db.Decimal(10, 2)

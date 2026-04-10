@@ -13,14 +13,26 @@ const supabase = createClient(
 )
 
 const users = [
-  { email: "admin@gym.com",        password: "Admin1234!",  fullName: "Admin User",        role: "ADMIN" },
-  { email: "agent@gym.com",        password: "Agent1234!",  fullName: "Sales Agent",       role: "SALES_AGENT" },
-  { email: "coach@gym.com",        password: "Coach1234!",  fullName: "Coach User",        role: "COACH" },
-  { email: "nutritionist@gym.com", password: "Nutri1234!",  fullName: "Nutritionist User", role: "NUTRITIONIST" },
-  { email: "client@gym.com",       password: "Client1234!", fullName: "Client User",       role: "CLIENT" },
+  { email: "admin@gym.com",  password: "GymAdmin@2025",  fullName: "Admin User",  role: "ADMIN" },
+  { email: "agent@gym.com",  password: "GymAgent@2025",  fullName: "Sales Agent", role: "SALES_AGENT" },
+  { email: "coach@gym.com",  password: "GymCoach@2025",  fullName: "Coach User",  role: "COACH" },
 ]
 
 async function seed() {
+  console.log("🧹 Clearing database...")
+
+  // Clear all profiles (cascades to related records)
+  await prisma.profile.deleteMany()
+
+  // Delete all Supabase auth users
+  const { data: { users: authUsers } } = await supabase.auth.admin.listUsers()
+  for (const u of authUsers) {
+    await supabase.auth.admin.deleteUser(u.id)
+  }
+
+  console.log("✔ Database cleared\n")
+
+  // Create new users
   for (const user of users) {
     const { data, error } = await supabase.auth.admin.createUser({
       email: user.email,
@@ -34,10 +46,8 @@ async function seed() {
       continue
     }
 
-    await prisma.profile.upsert({
-      where: { id: data.user.id },
-      update: {},
-      create: {
+    await prisma.profile.create({
+      data: {
         id: data.user.id,
         email: user.email,
         fullName: user.fullName,
@@ -49,6 +59,7 @@ async function seed() {
   }
 
   await prisma.$disconnect()
+  console.log("\n✅ Seed complete")
 }
 
 seed()

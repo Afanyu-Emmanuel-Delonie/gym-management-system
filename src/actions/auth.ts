@@ -29,18 +29,23 @@ export async function signUp(formatData: FormData){
 
     // creating user profile 
     if(data.user){
-        await prisma.profile.create({
-            data:{
-                id:data.user.id,
-                email: email,
-                fullName: fullName,
-                phoneNumber: phoneNumber,
+        // Clean up any orphaned profile with same email (deleted from auth but still in DB)
+        await prisma.profile.deleteMany({ where: { email, NOT: { id: data.user.id } } })
+        
+        await prisma.profile.upsert({
+            where: { email },
+            update: { id: data.user.id, fullName, phoneNumber },
+            create: {
+                id: data.user.id,
+                email,
+                fullName,
+                phoneNumber,
                 role: "CLIENT"
             }
         })
     }
 
-    return redirect("/verify-email") 
+    return redirect("/login") 
 }
 
 export async function login(formData: FormData) {
@@ -49,7 +54,7 @@ export async function login(formData: FormData) {
   const password = formData.get("password") as string
 
   const { data, error } = await supabase.auth.signInWithPassword({ email, password })
-  if (error) throw new Error(error.message)
+  if (error) return { error: "Invalid email or password. Please try again." }
 
   const userProfile = await prisma.profile.findUnique({
     where: { id: data.user.id }
@@ -63,6 +68,6 @@ export async function login(formData: FormData) {
     case 'COACH':
       return redirect('/coach/schedule')
     default:
-      return redirect('/client/home')
+      return redirect('/login')
   }
 }

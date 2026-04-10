@@ -1,29 +1,29 @@
 "use client"
 
-import { useTransition } from "react"
+import { useState, useTransition } from "react"
 import { login } from "@/actions/auth"
 import Button from "@/components/ui/Button"
 import Input from "@/components/ui/Input"
 import Toast from "@/components/ui/Toast"
-import { useToast } from "@/hooks/useToast"
 import Link from "next/link"
 
 export default function LoginPage() {
   const [pending, startTransition] = useTransition()
-  const { toast, showToast, hideToast } = useToast()
+  const [errorMsg, setErrorMsg] = useState("")
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
+    setErrorMsg("")
     startTransition(async () => {
       const result = await login(formData)
-      if (result?.error) showToast(result.error, "error")
+      if (result?.error) setErrorMsg(result.error)
     })
   }
 
   return (
     <div className="min-h-screen flex items-center justify-center relative">
-      {toast && <Toast message={toast.message} type={toast.type} onClose={hideToast} />}
+      {errorMsg && <Toast message={errorMsg} type="error" onClose={() => setErrorMsg("")} />}
 
       {/* Background */}
       <div
