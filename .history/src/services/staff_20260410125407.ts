@@ -1,0 +1,1 @@
+export async function createStaffMember( email: string, fullName: string, phoneNum role: 'ADMIN' | 'SALES_AGENT' | 'COACH')

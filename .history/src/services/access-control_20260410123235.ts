@@ -1,0 +1,1 @@
+export async function generateAccessCode(userId: string)

@@ -1,0 +1,1 @@
+export async function signUp(formatData: FormData)

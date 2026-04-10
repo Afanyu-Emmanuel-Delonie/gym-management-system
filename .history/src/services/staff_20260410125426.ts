@@ -1,0 +1,3 @@
+export async function createStaffMember( email: string, fullName: string, phoneNumber: string, role: 'ADMIN' | 'SALES_AGENT' | 'COACH'){
+    const supabase
+}

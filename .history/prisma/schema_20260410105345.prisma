@@ -1,0 +1,120 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// --- USER & AUTH ---
+
+enum Role {
+  ADMIN
+  SALES_AGENT
+  COACH
+  NUTRITIONIST
+  CLIENT
+}
+
+model Profile{
+  id  String  @id @default(uuid())
+  email String @unique
+  fullName String
+  role Role @default(CLIENT)
+  phoneNumber String?
+  createdAt DateTime @default(now())
+
+  // Relationships 
+  subscriptions Subscription[]
+  orders Order[]
+  accessCodes   AccessCode[]
+  bookings      Booking[]
+}
+
+// --- GYM & COACHES ---
+
+model Activity{
+  id String @id @default(cuid())
+  name String
+  description String?
+  schedules Schedule[]
+}
+
+model Schedule{
+  id String @id @default(cuid())
+  activityId String 
+  activity Activity @relation(fields: [activityId], references: [id])
+  coachId String
+  coach       Profile   @relation(fields: [coachId], references: [id])
+  startTime DateTime
+  endTime DateTime
+  capacity Int @default(20)
+  bookings Booking[]
+}
+
+model Booking {
+  id         String   @id @default(cuid())
+  scheduleId String
+  schedule   Schedule @relation(fields: [scheduleId], references: [id])
+  clientId   String
+  client     Profile  @relation(fields: [clientId], references: [id])
+  createdAt  DateTime @default(now())
+}
+
+// --- SUBSCRIPTIONS & ACCESS ---
+
+model Subscription {
+  id        String   @id @default(cuid())
+  profileId String
+  profile   Profile  @relation(fields: [profileId], references: [id])
+  type      String   // "DAILY", "MONTHLY", "YEARLY"
+  startDate DateTime @default(now())
+  endDate   DateTime
+  isActive  Boolean  @default(true)
+}
+
+model AccessCode {
+  id        String   @id @default(cuid())
+  code      String   @unique // The 6-digit code for the agent to check
+  profileId String
+  profile   Profile  @relation(fields: [profileId], references: [id])
+  expiresAt DateTime
+  isUsed    Boolean  @default(false)
+}
+
+// --- E-COMMERCE ---
+
+model Product {
+  id          String      @id @default(cuid())
+  name        String
+  price       Decimal     @db.Decimal(10, 2)
+  stock       Int         @default(0)
+  image       String?     // URL from Supabase Storage
+  orderItems  OrderItem[]
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  profileId   String
+  profile     Profile     @relation(fields: [profileId], references: [id])
+  total       Decimal     @db.Decimal(10, 2)
+  status      String      @default("PENDING") // PENDING, PAID, DELIVERED
+  address     String?     // For delivery
+  items       OrderItem[]
+  createdAt   DateTime    @default(now())
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+}
