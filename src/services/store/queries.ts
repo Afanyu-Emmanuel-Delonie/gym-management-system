@@ -2,14 +2,21 @@ import prisma from "../../lib/prisma"
 
 // --- PRODUCTS ---
 
-export async function getProducts(filters?: { category?: string; isActive?: boolean }) {
-  return await prisma.product.findMany({
-    where: {
-      ...(filters?.category ? { category: filters.category } : {}),
-      isActive: filters?.isActive ?? true,
-    },
-    orderBy: { createdAt: "desc" },
-  })
+export async function getProducts(filters?: { category?: string; isActive?: boolean }, page = 1, pageSize = 10) {
+  const where = {
+    ...(filters?.category ? { category: filters.category } : {}),
+    ...(filters?.isActive !== undefined ? { isActive: filters.isActive } : {}),
+  }
+  const [data, total] = await Promise.all([
+    prisma.product.findMany({
+      where,
+      orderBy: { createdAt: "desc" },
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+    }),
+    prisma.product.count({ where }),
+  ])
+  return { data, total }
 }
 
 export async function getProductById(productId: string) {
@@ -71,16 +78,26 @@ export async function getClientOrders(clientId: string) {
   })
 }
 
-export async function getAllOrders(status?: OrderStatus) {
-  return await prisma.order.findMany({
-    where: status ? { status } : undefined,
-    include: {
-      client: { select: { fullName: true, email: true, phoneNumber: true } },
-      items: { include: { product: { select: { name: true } } } },
-      delivery: true,
-    },
-    orderBy: { createdAt: "desc" },
-  })
+export async function getAllOrders(status?: OrderStatus, page = 1, pageSize = 10, search?: string) {
+  const where = {
+    ...(status ? { status } : {}),
+    ...(search ? { client: { OR: [{ fullName: { contains: search, mode: "insensitive" as const } }, { email: { contains: search, mode: "insensitive" as const } }] } } : {}),
+  }
+  const [data, total] = await Promise.all([
+    prisma.order.findMany({
+      where,
+      include: {
+        client: { select: { fullName: true, email: true, phoneNumber: true } },
+        items: { include: { product: { select: { name: true } } } },
+        delivery: true,
+      },
+      orderBy: { createdAt: "desc" },
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+    }),
+    prisma.order.count({ where }),
+  ])
+  return { data, total }
 }
 
 export async function getOrderById(orderId: string) {

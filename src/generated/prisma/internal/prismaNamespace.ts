@@ -391,6 +391,10 @@ export const ModelName = {
   Subscription: 'Subscription',
   Appointment: 'Appointment',
   AccessCode: 'AccessCode',
+  Roster: 'Roster',
+  RosterShift: 'RosterShift',
+  Attendance: 'Attendance',
+  ContactInquiry: 'ContactInquiry',
   GymService: 'GymService',
   Testimonial: 'Testimonial',
   Discount: 'Discount',
@@ -413,7 +417,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "profile" | "activity" | "schedule" | "booking" | "subscription" | "appointment" | "accessCode" | "gymService" | "testimonial" | "discount" | "product" | "order" | "orderItem" | "delivery"
+    modelProps: "profile" | "activity" | "schedule" | "booking" | "subscription" | "appointment" | "accessCode" | "roster" | "rosterShift" | "attendance" | "contactInquiry" | "gymService" | "testimonial" | "discount" | "product" | "order" | "orderItem" | "delivery"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -932,6 +936,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.AccessCodeCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.AccessCodeCountAggregateOutputType> | number
+        }
+      }
+    }
+    Roster: {
+      payload: Prisma.$RosterPayload<ExtArgs>
+      fields: Prisma.RosterFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RosterFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RosterPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RosterFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RosterPayload>
+        }
+        findFirst: {
+          args: Prisma.RosterFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RosterPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RosterFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RosterPayload>
+        }
+        findMany: {
+          args: Prisma.RosterFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RosterPayload>[]
+        }
+        create: {
+          args: Prisma.RosterCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RosterPayload>
+        }
+        createMany: {
+          args: Prisma.RosterCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RosterCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RosterPayload>[]
+        }
+        delete: {
+          args: Prisma.RosterDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RosterPayload>
+        }
+        update: {
+          args: Prisma.RosterUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RosterPayload>
+        }
+        deleteMany: {
+          args: Prisma.RosterDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RosterUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RosterUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RosterPayload>[]
+        }
+        upsert: {
+          args: Prisma.RosterUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RosterPayload>
+        }
+        aggregate: {
+          args: Prisma.RosterAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRoster>
+        }
+        groupBy: {
+          args: Prisma.RosterGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RosterGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RosterCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RosterCountAggregateOutputType> | number
+        }
+      }
+    }
+    RosterShift: {
+      payload: Prisma.$RosterShiftPayload<ExtArgs>
+      fields: Prisma.RosterShiftFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RosterShiftFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RosterShiftPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RosterShiftFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RosterShiftPayload>
+        }
+        findFirst: {
+          args: Prisma.RosterShiftFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RosterShiftPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RosterShiftFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RosterShiftPayload>
+        }
+        findMany: {
+          args: Prisma.RosterShiftFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RosterShiftPayload>[]
+        }
+        create: {
+          args: Prisma.RosterShiftCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RosterShiftPayload>
+        }
+        createMany: {
+          args: Prisma.RosterShiftCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RosterShiftCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RosterShiftPayload>[]
+        }
+        delete: {
+          args: Prisma.RosterShiftDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RosterShiftPayload>
+        }
+        update: {
+          args: Prisma.RosterShiftUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RosterShiftPayload>
+        }
+        deleteMany: {
+          args: Prisma.RosterShiftDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RosterShiftUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RosterShiftUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RosterShiftPayload>[]
+        }
+        upsert: {
+          args: Prisma.RosterShiftUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RosterShiftPayload>
+        }
+        aggregate: {
+          args: Prisma.RosterShiftAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRosterShift>
+        }
+        groupBy: {
+          args: Prisma.RosterShiftGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RosterShiftGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RosterShiftCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RosterShiftCountAggregateOutputType> | number
+        }
+      }
+    }
+    Attendance: {
+      payload: Prisma.$AttendancePayload<ExtArgs>
+      fields: Prisma.AttendanceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AttendanceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendancePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AttendanceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendancePayload>
+        }
+        findFirst: {
+          args: Prisma.AttendanceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendancePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AttendanceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendancePayload>
+        }
+        findMany: {
+          args: Prisma.AttendanceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendancePayload>[]
+        }
+        create: {
+          args: Prisma.AttendanceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendancePayload>
+        }
+        createMany: {
+          args: Prisma.AttendanceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AttendanceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendancePayload>[]
+        }
+        delete: {
+          args: Prisma.AttendanceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendancePayload>
+        }
+        update: {
+          args: Prisma.AttendanceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendancePayload>
+        }
+        deleteMany: {
+          args: Prisma.AttendanceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AttendanceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AttendanceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendancePayload>[]
+        }
+        upsert: {
+          args: Prisma.AttendanceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AttendancePayload>
+        }
+        aggregate: {
+          args: Prisma.AttendanceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAttendance>
+        }
+        groupBy: {
+          args: Prisma.AttendanceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AttendanceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AttendanceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AttendanceCountAggregateOutputType> | number
+        }
+      }
+    }
+    ContactInquiry: {
+      payload: Prisma.$ContactInquiryPayload<ExtArgs>
+      fields: Prisma.ContactInquiryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ContactInquiryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactInquiryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ContactInquiryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactInquiryPayload>
+        }
+        findFirst: {
+          args: Prisma.ContactInquiryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactInquiryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ContactInquiryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactInquiryPayload>
+        }
+        findMany: {
+          args: Prisma.ContactInquiryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactInquiryPayload>[]
+        }
+        create: {
+          args: Prisma.ContactInquiryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactInquiryPayload>
+        }
+        createMany: {
+          args: Prisma.ContactInquiryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ContactInquiryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactInquiryPayload>[]
+        }
+        delete: {
+          args: Prisma.ContactInquiryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactInquiryPayload>
+        }
+        update: {
+          args: Prisma.ContactInquiryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactInquiryPayload>
+        }
+        deleteMany: {
+          args: Prisma.ContactInquiryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ContactInquiryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ContactInquiryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactInquiryPayload>[]
+        }
+        upsert: {
+          args: Prisma.ContactInquiryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContactInquiryPayload>
+        }
+        aggregate: {
+          args: Prisma.ContactInquiryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateContactInquiry>
+        }
+        groupBy: {
+          args: Prisma.ContactInquiryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContactInquiryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ContactInquiryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContactInquiryCountAggregateOutputType> | number
         }
       }
     }
@@ -1575,6 +1875,59 @@ export const AccessCodeScalarFieldEnum = {
 export type AccessCodeScalarFieldEnum = (typeof AccessCodeScalarFieldEnum)[keyof typeof AccessCodeScalarFieldEnum]
 
 
+export const RosterScalarFieldEnum = {
+  id: 'id',
+  weekStart: 'weekStart',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RosterScalarFieldEnum = (typeof RosterScalarFieldEnum)[keyof typeof RosterScalarFieldEnum]
+
+
+export const RosterShiftScalarFieldEnum = {
+  id: 'id',
+  rosterId: 'rosterId',
+  staffId: 'staffId',
+  day: 'day',
+  shift: 'shift',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  note: 'note'
+} as const
+
+export type RosterShiftScalarFieldEnum = (typeof RosterShiftScalarFieldEnum)[keyof typeof RosterShiftScalarFieldEnum]
+
+
+export const AttendanceScalarFieldEnum = {
+  id: 'id',
+  staffId: 'staffId',
+  date: 'date',
+  checkIn: 'checkIn',
+  checkOut: 'checkOut',
+  status: 'status',
+  note: 'note',
+  createdAt: 'createdAt'
+} as const
+
+export type AttendanceScalarFieldEnum = (typeof AttendanceScalarFieldEnum)[keyof typeof AttendanceScalarFieldEnum]
+
+
+export const ContactInquiryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  phone: 'phone',
+  subject: 'subject',
+  message: 'message',
+  status: 'status',
+  createdAt: 'createdAt'
+} as const
+
+export type ContactInquiryScalarFieldEnum = (typeof ContactInquiryScalarFieldEnum)[keyof typeof ContactInquiryScalarFieldEnum]
+
+
 export const GymServiceScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -1855,6 +2208,62 @@ export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
+ * Reference to a field of type 'RosterStatus'
+ */
+export type EnumRosterStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RosterStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'RosterStatus[]'
+ */
+export type ListEnumRosterStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RosterStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ShiftType'
+ */
+export type EnumShiftTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShiftType'>
+    
+
+
+/**
+ * Reference to a field of type 'ShiftType[]'
+ */
+export type ListEnumShiftTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShiftType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'AttendanceStatus'
+ */
+export type EnumAttendanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttendanceStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'AttendanceStatus[]'
+ */
+export type ListEnumAttendanceStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttendanceStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'InquiryStatus'
+ */
+export type EnumInquiryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InquiryStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'InquiryStatus[]'
+ */
+export type ListEnumInquiryStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InquiryStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'DiscountType'
  */
 export type EnumDiscountTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DiscountType'>
@@ -2011,6 +2420,10 @@ export type GlobalOmitConfig = {
   subscription?: Prisma.SubscriptionOmit
   appointment?: Prisma.AppointmentOmit
   accessCode?: Prisma.AccessCodeOmit
+  roster?: Prisma.RosterOmit
+  rosterShift?: Prisma.RosterShiftOmit
+  attendance?: Prisma.AttendanceOmit
+  contactInquiry?: Prisma.ContactInquiryOmit
   gymService?: Prisma.GymServiceOmit
   testimonial?: Prisma.TestimonialOmit
   discount?: Prisma.DiscountOmit

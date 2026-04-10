@@ -198,6 +198,8 @@ export type ProfileWhereInput = {
   clientAppointments?: Prisma.AppointmentListRelationFilter
   coachAppointments?: Prisma.AppointmentListRelationFilter
   testimonials?: Prisma.TestimonialListRelationFilter
+  rosterShifts?: Prisma.RosterShiftListRelationFilter
+  attendance?: Prisma.AttendanceListRelationFilter
 }
 
 export type ProfileOrderByWithRelationInput = {
@@ -215,6 +217,8 @@ export type ProfileOrderByWithRelationInput = {
   clientAppointments?: Prisma.AppointmentOrderByRelationAggregateInput
   coachAppointments?: Prisma.AppointmentOrderByRelationAggregateInput
   testimonials?: Prisma.TestimonialOrderByRelationAggregateInput
+  rosterShifts?: Prisma.RosterShiftOrderByRelationAggregateInput
+  attendance?: Prisma.AttendanceOrderByRelationAggregateInput
 }
 
 export type ProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -235,6 +239,8 @@ export type ProfileWhereUniqueInput = Prisma.AtLeast<{
   clientAppointments?: Prisma.AppointmentListRelationFilter
   coachAppointments?: Prisma.AppointmentListRelationFilter
   testimonials?: Prisma.TestimonialListRelationFilter
+  rosterShifts?: Prisma.RosterShiftListRelationFilter
+  attendance?: Prisma.AttendanceListRelationFilter
 }, "id" | "email">
 
 export type ProfileOrderByWithAggregationInput = {
@@ -276,6 +282,8 @@ export type ProfileCreateInput = {
   clientAppointments?: Prisma.AppointmentCreateNestedManyWithoutClientInput
   coachAppointments?: Prisma.AppointmentCreateNestedManyWithoutCoachInput
   testimonials?: Prisma.TestimonialCreateNestedManyWithoutProfileInput
+  rosterShifts?: Prisma.RosterShiftCreateNestedManyWithoutStaffInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutStaffInput
 }
 
 export type ProfileUncheckedCreateInput = {
@@ -293,6 +301,8 @@ export type ProfileUncheckedCreateInput = {
   clientAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutClientInput
   coachAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCoachInput
   testimonials?: Prisma.TestimonialUncheckedCreateNestedManyWithoutProfileInput
+  rosterShifts?: Prisma.RosterShiftUncheckedCreateNestedManyWithoutStaffInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStaffInput
 }
 
 export type ProfileUpdateInput = {
@@ -310,6 +320,8 @@ export type ProfileUpdateInput = {
   clientAppointments?: Prisma.AppointmentUpdateManyWithoutClientNestedInput
   coachAppointments?: Prisma.AppointmentUpdateManyWithoutCoachNestedInput
   testimonials?: Prisma.TestimonialUpdateManyWithoutProfileNestedInput
+  rosterShifts?: Prisma.RosterShiftUpdateManyWithoutStaffNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutStaffNestedInput
 }
 
 export type ProfileUncheckedUpdateInput = {
@@ -327,6 +339,8 @@ export type ProfileUncheckedUpdateInput = {
   clientAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutClientNestedInput
   coachAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCoachNestedInput
   testimonials?: Prisma.TestimonialUncheckedUpdateManyWithoutProfileNestedInput
+  rosterShifts?: Prisma.RosterShiftUncheckedUpdateManyWithoutStaffNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutStaffNestedInput
 }
 
 export type ProfileCreateManyInput = {
@@ -488,6 +502,34 @@ export type ProfileUpdateOneRequiredWithoutAccessCodesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProfileUpdateToOneWithWhereWithoutAccessCodesInput, Prisma.ProfileUpdateWithoutAccessCodesInput>, Prisma.ProfileUncheckedUpdateWithoutAccessCodesInput>
 }
 
+export type ProfileCreateNestedOneWithoutRosterShiftsInput = {
+  create?: Prisma.XOR<Prisma.ProfileCreateWithoutRosterShiftsInput, Prisma.ProfileUncheckedCreateWithoutRosterShiftsInput>
+  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutRosterShiftsInput
+  connect?: Prisma.ProfileWhereUniqueInput
+}
+
+export type ProfileUpdateOneRequiredWithoutRosterShiftsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProfileCreateWithoutRosterShiftsInput, Prisma.ProfileUncheckedCreateWithoutRosterShiftsInput>
+  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutRosterShiftsInput
+  upsert?: Prisma.ProfileUpsertWithoutRosterShiftsInput
+  connect?: Prisma.ProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProfileUpdateToOneWithWhereWithoutRosterShiftsInput, Prisma.ProfileUpdateWithoutRosterShiftsInput>, Prisma.ProfileUncheckedUpdateWithoutRosterShiftsInput>
+}
+
+export type ProfileCreateNestedOneWithoutAttendanceInput = {
+  create?: Prisma.XOR<Prisma.ProfileCreateWithoutAttendanceInput, Prisma.ProfileUncheckedCreateWithoutAttendanceInput>
+  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutAttendanceInput
+  connect?: Prisma.ProfileWhereUniqueInput
+}
+
+export type ProfileUpdateOneRequiredWithoutAttendanceNestedInput = {
+  create?: Prisma.XOR<Prisma.ProfileCreateWithoutAttendanceInput, Prisma.ProfileUncheckedCreateWithoutAttendanceInput>
+  connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutAttendanceInput
+  upsert?: Prisma.ProfileUpsertWithoutAttendanceInput
+  connect?: Prisma.ProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProfileUpdateToOneWithWhereWithoutAttendanceInput, Prisma.ProfileUpdateWithoutAttendanceInput>, Prisma.ProfileUncheckedUpdateWithoutAttendanceInput>
+}
+
 export type ProfileCreateNestedOneWithoutTestimonialsInput = {
   create?: Prisma.XOR<Prisma.ProfileCreateWithoutTestimonialsInput, Prisma.ProfileUncheckedCreateWithoutTestimonialsInput>
   connectOrCreate?: Prisma.ProfileCreateOrConnectWithoutTestimonialsInput
@@ -530,6 +572,8 @@ export type ProfileCreateWithoutCoachSchedulesInput = {
   clientAppointments?: Prisma.AppointmentCreateNestedManyWithoutClientInput
   coachAppointments?: Prisma.AppointmentCreateNestedManyWithoutCoachInput
   testimonials?: Prisma.TestimonialCreateNestedManyWithoutProfileInput
+  rosterShifts?: Prisma.RosterShiftCreateNestedManyWithoutStaffInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutStaffInput
 }
 
 export type ProfileUncheckedCreateWithoutCoachSchedulesInput = {
@@ -546,6 +590,8 @@ export type ProfileUncheckedCreateWithoutCoachSchedulesInput = {
   clientAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutClientInput
   coachAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCoachInput
   testimonials?: Prisma.TestimonialUncheckedCreateNestedManyWithoutProfileInput
+  rosterShifts?: Prisma.RosterShiftUncheckedCreateNestedManyWithoutStaffInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStaffInput
 }
 
 export type ProfileCreateOrConnectWithoutCoachSchedulesInput = {
@@ -578,6 +624,8 @@ export type ProfileUpdateWithoutCoachSchedulesInput = {
   clientAppointments?: Prisma.AppointmentUpdateManyWithoutClientNestedInput
   coachAppointments?: Prisma.AppointmentUpdateManyWithoutCoachNestedInput
   testimonials?: Prisma.TestimonialUpdateManyWithoutProfileNestedInput
+  rosterShifts?: Prisma.RosterShiftUpdateManyWithoutStaffNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutStaffNestedInput
 }
 
 export type ProfileUncheckedUpdateWithoutCoachSchedulesInput = {
@@ -594,6 +642,8 @@ export type ProfileUncheckedUpdateWithoutCoachSchedulesInput = {
   clientAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutClientNestedInput
   coachAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCoachNestedInput
   testimonials?: Prisma.TestimonialUncheckedUpdateManyWithoutProfileNestedInput
+  rosterShifts?: Prisma.RosterShiftUncheckedUpdateManyWithoutStaffNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutStaffNestedInput
 }
 
 export type ProfileCreateWithoutBookingsInput = {
@@ -610,6 +660,8 @@ export type ProfileCreateWithoutBookingsInput = {
   clientAppointments?: Prisma.AppointmentCreateNestedManyWithoutClientInput
   coachAppointments?: Prisma.AppointmentCreateNestedManyWithoutCoachInput
   testimonials?: Prisma.TestimonialCreateNestedManyWithoutProfileInput
+  rosterShifts?: Prisma.RosterShiftCreateNestedManyWithoutStaffInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutStaffInput
 }
 
 export type ProfileUncheckedCreateWithoutBookingsInput = {
@@ -626,6 +678,8 @@ export type ProfileUncheckedCreateWithoutBookingsInput = {
   clientAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutClientInput
   coachAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCoachInput
   testimonials?: Prisma.TestimonialUncheckedCreateNestedManyWithoutProfileInput
+  rosterShifts?: Prisma.RosterShiftUncheckedCreateNestedManyWithoutStaffInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStaffInput
 }
 
 export type ProfileCreateOrConnectWithoutBookingsInput = {
@@ -658,6 +712,8 @@ export type ProfileUpdateWithoutBookingsInput = {
   clientAppointments?: Prisma.AppointmentUpdateManyWithoutClientNestedInput
   coachAppointments?: Prisma.AppointmentUpdateManyWithoutCoachNestedInput
   testimonials?: Prisma.TestimonialUpdateManyWithoutProfileNestedInput
+  rosterShifts?: Prisma.RosterShiftUpdateManyWithoutStaffNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutStaffNestedInput
 }
 
 export type ProfileUncheckedUpdateWithoutBookingsInput = {
@@ -674,6 +730,8 @@ export type ProfileUncheckedUpdateWithoutBookingsInput = {
   clientAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutClientNestedInput
   coachAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCoachNestedInput
   testimonials?: Prisma.TestimonialUncheckedUpdateManyWithoutProfileNestedInput
+  rosterShifts?: Prisma.RosterShiftUncheckedUpdateManyWithoutStaffNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutStaffNestedInput
 }
 
 export type ProfileCreateWithoutSubscriptionsInput = {
@@ -690,6 +748,8 @@ export type ProfileCreateWithoutSubscriptionsInput = {
   clientAppointments?: Prisma.AppointmentCreateNestedManyWithoutClientInput
   coachAppointments?: Prisma.AppointmentCreateNestedManyWithoutCoachInput
   testimonials?: Prisma.TestimonialCreateNestedManyWithoutProfileInput
+  rosterShifts?: Prisma.RosterShiftCreateNestedManyWithoutStaffInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutStaffInput
 }
 
 export type ProfileUncheckedCreateWithoutSubscriptionsInput = {
@@ -706,6 +766,8 @@ export type ProfileUncheckedCreateWithoutSubscriptionsInput = {
   clientAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutClientInput
   coachAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCoachInput
   testimonials?: Prisma.TestimonialUncheckedCreateNestedManyWithoutProfileInput
+  rosterShifts?: Prisma.RosterShiftUncheckedCreateNestedManyWithoutStaffInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStaffInput
 }
 
 export type ProfileCreateOrConnectWithoutSubscriptionsInput = {
@@ -738,6 +800,8 @@ export type ProfileUpdateWithoutSubscriptionsInput = {
   clientAppointments?: Prisma.AppointmentUpdateManyWithoutClientNestedInput
   coachAppointments?: Prisma.AppointmentUpdateManyWithoutCoachNestedInput
   testimonials?: Prisma.TestimonialUpdateManyWithoutProfileNestedInput
+  rosterShifts?: Prisma.RosterShiftUpdateManyWithoutStaffNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutStaffNestedInput
 }
 
 export type ProfileUncheckedUpdateWithoutSubscriptionsInput = {
@@ -754,6 +818,8 @@ export type ProfileUncheckedUpdateWithoutSubscriptionsInput = {
   clientAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutClientNestedInput
   coachAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCoachNestedInput
   testimonials?: Prisma.TestimonialUncheckedUpdateManyWithoutProfileNestedInput
+  rosterShifts?: Prisma.RosterShiftUncheckedUpdateManyWithoutStaffNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutStaffNestedInput
 }
 
 export type ProfileCreateWithoutClientAppointmentsInput = {
@@ -770,6 +836,8 @@ export type ProfileCreateWithoutClientAppointmentsInput = {
   bookings?: Prisma.BookingCreateNestedManyWithoutClientInput
   coachAppointments?: Prisma.AppointmentCreateNestedManyWithoutCoachInput
   testimonials?: Prisma.TestimonialCreateNestedManyWithoutProfileInput
+  rosterShifts?: Prisma.RosterShiftCreateNestedManyWithoutStaffInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutStaffInput
 }
 
 export type ProfileUncheckedCreateWithoutClientAppointmentsInput = {
@@ -786,6 +854,8 @@ export type ProfileUncheckedCreateWithoutClientAppointmentsInput = {
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutClientInput
   coachAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCoachInput
   testimonials?: Prisma.TestimonialUncheckedCreateNestedManyWithoutProfileInput
+  rosterShifts?: Prisma.RosterShiftUncheckedCreateNestedManyWithoutStaffInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStaffInput
 }
 
 export type ProfileCreateOrConnectWithoutClientAppointmentsInput = {
@@ -807,6 +877,8 @@ export type ProfileCreateWithoutCoachAppointmentsInput = {
   bookings?: Prisma.BookingCreateNestedManyWithoutClientInput
   clientAppointments?: Prisma.AppointmentCreateNestedManyWithoutClientInput
   testimonials?: Prisma.TestimonialCreateNestedManyWithoutProfileInput
+  rosterShifts?: Prisma.RosterShiftCreateNestedManyWithoutStaffInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutStaffInput
 }
 
 export type ProfileUncheckedCreateWithoutCoachAppointmentsInput = {
@@ -823,6 +895,8 @@ export type ProfileUncheckedCreateWithoutCoachAppointmentsInput = {
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutClientInput
   clientAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutClientInput
   testimonials?: Prisma.TestimonialUncheckedCreateNestedManyWithoutProfileInput
+  rosterShifts?: Prisma.RosterShiftUncheckedCreateNestedManyWithoutStaffInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStaffInput
 }
 
 export type ProfileCreateOrConnectWithoutCoachAppointmentsInput = {
@@ -855,6 +929,8 @@ export type ProfileUpdateWithoutClientAppointmentsInput = {
   bookings?: Prisma.BookingUpdateManyWithoutClientNestedInput
   coachAppointments?: Prisma.AppointmentUpdateManyWithoutCoachNestedInput
   testimonials?: Prisma.TestimonialUpdateManyWithoutProfileNestedInput
+  rosterShifts?: Prisma.RosterShiftUpdateManyWithoutStaffNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutStaffNestedInput
 }
 
 export type ProfileUncheckedUpdateWithoutClientAppointmentsInput = {
@@ -871,6 +947,8 @@ export type ProfileUncheckedUpdateWithoutClientAppointmentsInput = {
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutClientNestedInput
   coachAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCoachNestedInput
   testimonials?: Prisma.TestimonialUncheckedUpdateManyWithoutProfileNestedInput
+  rosterShifts?: Prisma.RosterShiftUncheckedUpdateManyWithoutStaffNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutStaffNestedInput
 }
 
 export type ProfileUpsertWithoutCoachAppointmentsInput = {
@@ -898,6 +976,8 @@ export type ProfileUpdateWithoutCoachAppointmentsInput = {
   bookings?: Prisma.BookingUpdateManyWithoutClientNestedInput
   clientAppointments?: Prisma.AppointmentUpdateManyWithoutClientNestedInput
   testimonials?: Prisma.TestimonialUpdateManyWithoutProfileNestedInput
+  rosterShifts?: Prisma.RosterShiftUpdateManyWithoutStaffNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutStaffNestedInput
 }
 
 export type ProfileUncheckedUpdateWithoutCoachAppointmentsInput = {
@@ -914,6 +994,8 @@ export type ProfileUncheckedUpdateWithoutCoachAppointmentsInput = {
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutClientNestedInput
   clientAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutClientNestedInput
   testimonials?: Prisma.TestimonialUncheckedUpdateManyWithoutProfileNestedInput
+  rosterShifts?: Prisma.RosterShiftUncheckedUpdateManyWithoutStaffNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutStaffNestedInput
 }
 
 export type ProfileCreateWithoutAccessCodesInput = {
@@ -930,6 +1012,8 @@ export type ProfileCreateWithoutAccessCodesInput = {
   clientAppointments?: Prisma.AppointmentCreateNestedManyWithoutClientInput
   coachAppointments?: Prisma.AppointmentCreateNestedManyWithoutCoachInput
   testimonials?: Prisma.TestimonialCreateNestedManyWithoutProfileInput
+  rosterShifts?: Prisma.RosterShiftCreateNestedManyWithoutStaffInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutStaffInput
 }
 
 export type ProfileUncheckedCreateWithoutAccessCodesInput = {
@@ -946,6 +1030,8 @@ export type ProfileUncheckedCreateWithoutAccessCodesInput = {
   clientAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutClientInput
   coachAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCoachInput
   testimonials?: Prisma.TestimonialUncheckedCreateNestedManyWithoutProfileInput
+  rosterShifts?: Prisma.RosterShiftUncheckedCreateNestedManyWithoutStaffInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStaffInput
 }
 
 export type ProfileCreateOrConnectWithoutAccessCodesInput = {
@@ -978,6 +1064,8 @@ export type ProfileUpdateWithoutAccessCodesInput = {
   clientAppointments?: Prisma.AppointmentUpdateManyWithoutClientNestedInput
   coachAppointments?: Prisma.AppointmentUpdateManyWithoutCoachNestedInput
   testimonials?: Prisma.TestimonialUpdateManyWithoutProfileNestedInput
+  rosterShifts?: Prisma.RosterShiftUpdateManyWithoutStaffNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutStaffNestedInput
 }
 
 export type ProfileUncheckedUpdateWithoutAccessCodesInput = {
@@ -994,6 +1082,184 @@ export type ProfileUncheckedUpdateWithoutAccessCodesInput = {
   clientAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutClientNestedInput
   coachAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCoachNestedInput
   testimonials?: Prisma.TestimonialUncheckedUpdateManyWithoutProfileNestedInput
+  rosterShifts?: Prisma.RosterShiftUncheckedUpdateManyWithoutStaffNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutStaffNestedInput
+}
+
+export type ProfileCreateWithoutRosterShiftsInput = {
+  id?: string
+  email: string
+  fullName: string
+  role?: $Enums.Role
+  phoneNumber?: string | null
+  createdAt?: Date | string
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutProfileInput
+  orders?: Prisma.OrderCreateNestedManyWithoutClientInput
+  accessCodes?: Prisma.AccessCodeCreateNestedManyWithoutProfileInput
+  coachSchedules?: Prisma.ScheduleCreateNestedManyWithoutCoachInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutClientInput
+  clientAppointments?: Prisma.AppointmentCreateNestedManyWithoutClientInput
+  coachAppointments?: Prisma.AppointmentCreateNestedManyWithoutCoachInput
+  testimonials?: Prisma.TestimonialCreateNestedManyWithoutProfileInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutStaffInput
+}
+
+export type ProfileUncheckedCreateWithoutRosterShiftsInput = {
+  id?: string
+  email: string
+  fullName: string
+  role?: $Enums.Role
+  phoneNumber?: string | null
+  createdAt?: Date | string
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutProfileInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutClientInput
+  accessCodes?: Prisma.AccessCodeUncheckedCreateNestedManyWithoutProfileInput
+  coachSchedules?: Prisma.ScheduleUncheckedCreateNestedManyWithoutCoachInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutClientInput
+  clientAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutClientInput
+  coachAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCoachInput
+  testimonials?: Prisma.TestimonialUncheckedCreateNestedManyWithoutProfileInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStaffInput
+}
+
+export type ProfileCreateOrConnectWithoutRosterShiftsInput = {
+  where: Prisma.ProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProfileCreateWithoutRosterShiftsInput, Prisma.ProfileUncheckedCreateWithoutRosterShiftsInput>
+}
+
+export type ProfileUpsertWithoutRosterShiftsInput = {
+  update: Prisma.XOR<Prisma.ProfileUpdateWithoutRosterShiftsInput, Prisma.ProfileUncheckedUpdateWithoutRosterShiftsInput>
+  create: Prisma.XOR<Prisma.ProfileCreateWithoutRosterShiftsInput, Prisma.ProfileUncheckedCreateWithoutRosterShiftsInput>
+  where?: Prisma.ProfileWhereInput
+}
+
+export type ProfileUpdateToOneWithWhereWithoutRosterShiftsInput = {
+  where?: Prisma.ProfileWhereInput
+  data: Prisma.XOR<Prisma.ProfileUpdateWithoutRosterShiftsInput, Prisma.ProfileUncheckedUpdateWithoutRosterShiftsInput>
+}
+
+export type ProfileUpdateWithoutRosterShiftsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutProfileNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutClientNestedInput
+  accessCodes?: Prisma.AccessCodeUpdateManyWithoutProfileNestedInput
+  coachSchedules?: Prisma.ScheduleUpdateManyWithoutCoachNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutClientNestedInput
+  clientAppointments?: Prisma.AppointmentUpdateManyWithoutClientNestedInput
+  coachAppointments?: Prisma.AppointmentUpdateManyWithoutCoachNestedInput
+  testimonials?: Prisma.TestimonialUpdateManyWithoutProfileNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutStaffNestedInput
+}
+
+export type ProfileUncheckedUpdateWithoutRosterShiftsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutProfileNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutClientNestedInput
+  accessCodes?: Prisma.AccessCodeUncheckedUpdateManyWithoutProfileNestedInput
+  coachSchedules?: Prisma.ScheduleUncheckedUpdateManyWithoutCoachNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutClientNestedInput
+  clientAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutClientNestedInput
+  coachAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCoachNestedInput
+  testimonials?: Prisma.TestimonialUncheckedUpdateManyWithoutProfileNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutStaffNestedInput
+}
+
+export type ProfileCreateWithoutAttendanceInput = {
+  id?: string
+  email: string
+  fullName: string
+  role?: $Enums.Role
+  phoneNumber?: string | null
+  createdAt?: Date | string
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutProfileInput
+  orders?: Prisma.OrderCreateNestedManyWithoutClientInput
+  accessCodes?: Prisma.AccessCodeCreateNestedManyWithoutProfileInput
+  coachSchedules?: Prisma.ScheduleCreateNestedManyWithoutCoachInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutClientInput
+  clientAppointments?: Prisma.AppointmentCreateNestedManyWithoutClientInput
+  coachAppointments?: Prisma.AppointmentCreateNestedManyWithoutCoachInput
+  testimonials?: Prisma.TestimonialCreateNestedManyWithoutProfileInput
+  rosterShifts?: Prisma.RosterShiftCreateNestedManyWithoutStaffInput
+}
+
+export type ProfileUncheckedCreateWithoutAttendanceInput = {
+  id?: string
+  email: string
+  fullName: string
+  role?: $Enums.Role
+  phoneNumber?: string | null
+  createdAt?: Date | string
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutProfileInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutClientInput
+  accessCodes?: Prisma.AccessCodeUncheckedCreateNestedManyWithoutProfileInput
+  coachSchedules?: Prisma.ScheduleUncheckedCreateNestedManyWithoutCoachInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutClientInput
+  clientAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutClientInput
+  coachAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCoachInput
+  testimonials?: Prisma.TestimonialUncheckedCreateNestedManyWithoutProfileInput
+  rosterShifts?: Prisma.RosterShiftUncheckedCreateNestedManyWithoutStaffInput
+}
+
+export type ProfileCreateOrConnectWithoutAttendanceInput = {
+  where: Prisma.ProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProfileCreateWithoutAttendanceInput, Prisma.ProfileUncheckedCreateWithoutAttendanceInput>
+}
+
+export type ProfileUpsertWithoutAttendanceInput = {
+  update: Prisma.XOR<Prisma.ProfileUpdateWithoutAttendanceInput, Prisma.ProfileUncheckedUpdateWithoutAttendanceInput>
+  create: Prisma.XOR<Prisma.ProfileCreateWithoutAttendanceInput, Prisma.ProfileUncheckedCreateWithoutAttendanceInput>
+  where?: Prisma.ProfileWhereInput
+}
+
+export type ProfileUpdateToOneWithWhereWithoutAttendanceInput = {
+  where?: Prisma.ProfileWhereInput
+  data: Prisma.XOR<Prisma.ProfileUpdateWithoutAttendanceInput, Prisma.ProfileUncheckedUpdateWithoutAttendanceInput>
+}
+
+export type ProfileUpdateWithoutAttendanceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutProfileNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutClientNestedInput
+  accessCodes?: Prisma.AccessCodeUpdateManyWithoutProfileNestedInput
+  coachSchedules?: Prisma.ScheduleUpdateManyWithoutCoachNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutClientNestedInput
+  clientAppointments?: Prisma.AppointmentUpdateManyWithoutClientNestedInput
+  coachAppointments?: Prisma.AppointmentUpdateManyWithoutCoachNestedInput
+  testimonials?: Prisma.TestimonialUpdateManyWithoutProfileNestedInput
+  rosterShifts?: Prisma.RosterShiftUpdateManyWithoutStaffNestedInput
+}
+
+export type ProfileUncheckedUpdateWithoutAttendanceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutProfileNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutClientNestedInput
+  accessCodes?: Prisma.AccessCodeUncheckedUpdateManyWithoutProfileNestedInput
+  coachSchedules?: Prisma.ScheduleUncheckedUpdateManyWithoutCoachNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutClientNestedInput
+  clientAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutClientNestedInput
+  coachAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCoachNestedInput
+  testimonials?: Prisma.TestimonialUncheckedUpdateManyWithoutProfileNestedInput
+  rosterShifts?: Prisma.RosterShiftUncheckedUpdateManyWithoutStaffNestedInput
 }
 
 export type ProfileCreateWithoutTestimonialsInput = {
@@ -1010,6 +1276,8 @@ export type ProfileCreateWithoutTestimonialsInput = {
   bookings?: Prisma.BookingCreateNestedManyWithoutClientInput
   clientAppointments?: Prisma.AppointmentCreateNestedManyWithoutClientInput
   coachAppointments?: Prisma.AppointmentCreateNestedManyWithoutCoachInput
+  rosterShifts?: Prisma.RosterShiftCreateNestedManyWithoutStaffInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutStaffInput
 }
 
 export type ProfileUncheckedCreateWithoutTestimonialsInput = {
@@ -1026,6 +1294,8 @@ export type ProfileUncheckedCreateWithoutTestimonialsInput = {
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutClientInput
   clientAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutClientInput
   coachAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCoachInput
+  rosterShifts?: Prisma.RosterShiftUncheckedCreateNestedManyWithoutStaffInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStaffInput
 }
 
 export type ProfileCreateOrConnectWithoutTestimonialsInput = {
@@ -1058,6 +1328,8 @@ export type ProfileUpdateWithoutTestimonialsInput = {
   bookings?: Prisma.BookingUpdateManyWithoutClientNestedInput
   clientAppointments?: Prisma.AppointmentUpdateManyWithoutClientNestedInput
   coachAppointments?: Prisma.AppointmentUpdateManyWithoutCoachNestedInput
+  rosterShifts?: Prisma.RosterShiftUpdateManyWithoutStaffNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutStaffNestedInput
 }
 
 export type ProfileUncheckedUpdateWithoutTestimonialsInput = {
@@ -1074,6 +1346,8 @@ export type ProfileUncheckedUpdateWithoutTestimonialsInput = {
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutClientNestedInput
   clientAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutClientNestedInput
   coachAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCoachNestedInput
+  rosterShifts?: Prisma.RosterShiftUncheckedUpdateManyWithoutStaffNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutStaffNestedInput
 }
 
 export type ProfileCreateWithoutOrdersInput = {
@@ -1090,6 +1364,8 @@ export type ProfileCreateWithoutOrdersInput = {
   clientAppointments?: Prisma.AppointmentCreateNestedManyWithoutClientInput
   coachAppointments?: Prisma.AppointmentCreateNestedManyWithoutCoachInput
   testimonials?: Prisma.TestimonialCreateNestedManyWithoutProfileInput
+  rosterShifts?: Prisma.RosterShiftCreateNestedManyWithoutStaffInput
+  attendance?: Prisma.AttendanceCreateNestedManyWithoutStaffInput
 }
 
 export type ProfileUncheckedCreateWithoutOrdersInput = {
@@ -1106,6 +1382,8 @@ export type ProfileUncheckedCreateWithoutOrdersInput = {
   clientAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutClientInput
   coachAppointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCoachInput
   testimonials?: Prisma.TestimonialUncheckedCreateNestedManyWithoutProfileInput
+  rosterShifts?: Prisma.RosterShiftUncheckedCreateNestedManyWithoutStaffInput
+  attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutStaffInput
 }
 
 export type ProfileCreateOrConnectWithoutOrdersInput = {
@@ -1138,6 +1416,8 @@ export type ProfileUpdateWithoutOrdersInput = {
   clientAppointments?: Prisma.AppointmentUpdateManyWithoutClientNestedInput
   coachAppointments?: Prisma.AppointmentUpdateManyWithoutCoachNestedInput
   testimonials?: Prisma.TestimonialUpdateManyWithoutProfileNestedInput
+  rosterShifts?: Prisma.RosterShiftUpdateManyWithoutStaffNestedInput
+  attendance?: Prisma.AttendanceUpdateManyWithoutStaffNestedInput
 }
 
 export type ProfileUncheckedUpdateWithoutOrdersInput = {
@@ -1154,6 +1434,8 @@ export type ProfileUncheckedUpdateWithoutOrdersInput = {
   clientAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutClientNestedInput
   coachAppointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCoachNestedInput
   testimonials?: Prisma.TestimonialUncheckedUpdateManyWithoutProfileNestedInput
+  rosterShifts?: Prisma.RosterShiftUncheckedUpdateManyWithoutStaffNestedInput
+  attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutStaffNestedInput
 }
 
 
@@ -1170,6 +1452,8 @@ export type ProfileCountOutputType = {
   clientAppointments: number
   coachAppointments: number
   testimonials: number
+  rosterShifts: number
+  attendance: number
 }
 
 export type ProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1181,6 +1465,8 @@ export type ProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   clientAppointments?: boolean | ProfileCountOutputTypeCountClientAppointmentsArgs
   coachAppointments?: boolean | ProfileCountOutputTypeCountCoachAppointmentsArgs
   testimonials?: boolean | ProfileCountOutputTypeCountTestimonialsArgs
+  rosterShifts?: boolean | ProfileCountOutputTypeCountRosterShiftsArgs
+  attendance?: boolean | ProfileCountOutputTypeCountAttendanceArgs
 }
 
 /**
@@ -1249,6 +1535,20 @@ export type ProfileCountOutputTypeCountTestimonialsArgs<ExtArgs extends runtime.
   where?: Prisma.TestimonialWhereInput
 }
 
+/**
+ * ProfileCountOutputType without action
+ */
+export type ProfileCountOutputTypeCountRosterShiftsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RosterShiftWhereInput
+}
+
+/**
+ * ProfileCountOutputType without action
+ */
+export type ProfileCountOutputTypeCountAttendanceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AttendanceWhereInput
+}
+
 
 export type ProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1265,6 +1565,8 @@ export type ProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   clientAppointments?: boolean | Prisma.Profile$clientAppointmentsArgs<ExtArgs>
   coachAppointments?: boolean | Prisma.Profile$coachAppointmentsArgs<ExtArgs>
   testimonials?: boolean | Prisma.Profile$testimonialsArgs<ExtArgs>
+  rosterShifts?: boolean | Prisma.Profile$rosterShiftsArgs<ExtArgs>
+  attendance?: boolean | Prisma.Profile$attendanceArgs<ExtArgs>
   _count?: boolean | Prisma.ProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["profile"]>
 
@@ -1305,6 +1607,8 @@ export type ProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   clientAppointments?: boolean | Prisma.Profile$clientAppointmentsArgs<ExtArgs>
   coachAppointments?: boolean | Prisma.Profile$coachAppointmentsArgs<ExtArgs>
   testimonials?: boolean | Prisma.Profile$testimonialsArgs<ExtArgs>
+  rosterShifts?: boolean | Prisma.Profile$rosterShiftsArgs<ExtArgs>
+  attendance?: boolean | Prisma.Profile$attendanceArgs<ExtArgs>
   _count?: boolean | Prisma.ProfileCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1321,6 +1625,8 @@ export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     clientAppointments: Prisma.$AppointmentPayload<ExtArgs>[]
     coachAppointments: Prisma.$AppointmentPayload<ExtArgs>[]
     testimonials: Prisma.$TestimonialPayload<ExtArgs>[]
+    rosterShifts: Prisma.$RosterShiftPayload<ExtArgs>[]
+    attendance: Prisma.$AttendancePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1731,6 +2037,8 @@ export interface Prisma__ProfileClient<T, Null = never, ExtArgs extends runtime.
   clientAppointments<T extends Prisma.Profile$clientAppointmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$clientAppointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   coachAppointments<T extends Prisma.Profile$coachAppointmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$coachAppointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   testimonials<T extends Prisma.Profile$testimonialsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$testimonialsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestimonialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  rosterShifts<T extends Prisma.Profile$rosterShiftsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$rosterShiftsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RosterShiftPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  attendance<T extends Prisma.Profile$attendanceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Profile$attendanceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2348,6 +2656,54 @@ export type Profile$testimonialsArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.TestimonialScalarFieldEnum | Prisma.TestimonialScalarFieldEnum[]
+}
+
+/**
+ * Profile.rosterShifts
+ */
+export type Profile$rosterShiftsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RosterShift
+   */
+  select?: Prisma.RosterShiftSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RosterShift
+   */
+  omit?: Prisma.RosterShiftOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RosterShiftInclude<ExtArgs> | null
+  where?: Prisma.RosterShiftWhereInput
+  orderBy?: Prisma.RosterShiftOrderByWithRelationInput | Prisma.RosterShiftOrderByWithRelationInput[]
+  cursor?: Prisma.RosterShiftWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RosterShiftScalarFieldEnum | Prisma.RosterShiftScalarFieldEnum[]
+}
+
+/**
+ * Profile.attendance
+ */
+export type Profile$attendanceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Attendance
+   */
+  select?: Prisma.AttendanceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Attendance
+   */
+  omit?: Prisma.AttendanceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AttendanceInclude<ExtArgs> | null
+  where?: Prisma.AttendanceWhereInput
+  orderBy?: Prisma.AttendanceOrderByWithRelationInput | Prisma.AttendanceOrderByWithRelationInput[]
+  cursor?: Prisma.AttendanceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AttendanceScalarFieldEnum | Prisma.AttendanceScalarFieldEnum[]
 }
 
 /**

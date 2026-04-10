@@ -20,6 +20,24 @@ export async function getActiveSubscriptions() {
   })
 }
 
+export async function getAllSubscriptions(page = 1, pageSize = 10, status?: string, search?: string) {
+  const where = {
+    ...(status && status !== "ALL" ? { status: status as any } : {}),
+    ...(search ? { profile: { OR: [{ fullName: { contains: search, mode: "insensitive" as const } }, { email: { contains: search, mode: "insensitive" as const } }] } } : {}),
+  }
+  const [data, total] = await Promise.all([
+    prisma.subscription.findMany({
+      where,
+      include: { profile: { select: { fullName: true, email: true, phoneNumber: true } } },
+      orderBy: { createdAt: "desc" },
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+    }),
+    prisma.subscription.count({ where }),
+  ])
+  return { data, total }
+}
+
 export async function getSubscriptionStats() {
   const [pending, active, expired, cancelled] = await Promise.all([
     prisma.subscription.count({ where: { status: "PENDING" } }),

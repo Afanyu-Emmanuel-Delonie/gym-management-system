@@ -77,6 +77,26 @@ export type Appointment = Prisma.AppointmentModel
  */
 export type AccessCode = Prisma.AccessCodeModel
 /**
+ * Model Roster
+ * 
+ */
+export type Roster = Prisma.RosterModel
+/**
+ * Model RosterShift
+ * 
+ */
+export type RosterShift = Prisma.RosterShiftModel
+/**
+ * Model Attendance
+ * 
+ */
+export type Attendance = Prisma.AttendanceModel
+/**
+ * Model ContactInquiry
+ * 
+ */
+export type ContactInquiry = Prisma.ContactInquiryModel
+/**
  * Model GymService
  * 
  */

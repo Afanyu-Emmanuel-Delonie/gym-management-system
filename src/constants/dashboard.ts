@@ -14,6 +14,7 @@ export const PAGE_TITLES: Record<string, string> = {
   "/admin/subscriptions": "Subscriptions",
   "/admin/store":         "Store",
   "/admin/content":       "Content",
+  "/profile":             "My Profile",
   "/agent/dashboard":     "Dashboard",
   "/agent/subscriptions": "Subscriptions",
   "/agent/access":        "Access Verification",

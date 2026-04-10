@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation"
 import { useState, useRef, useEffect } from "react"
 import { Menu, Search, Bell, ChevronDown, Settings, LogOut, User, X, Check } from "lucide-react"
+import Link from "next/link"
 import { useSidebar } from "./SidebarContext"
 import { PAGE_TITLES, MOCK_NOTIFICATIONS, NOTIF_TYPE_COLORS, Notification } from "@/constants/dashboard"
 import "@/app/header.css"
@@ -46,7 +47,7 @@ export default function Header({ fullName, role }: { fullName: string; role: str
         <button className="hdr-icon-btn" onClick={toggle} aria-label="Toggle sidebar">
           <Menu size={20} />
         </button>
-        <h2 style={{ margin: 0, fontSize: "var(--text-xl)", fontWeight: 400, color: "var(--color-text-primary)" }}>
+        <h2 style={{ margin: 0, fontWeight: 700, color: "var(--color-text-primary)" }}>
           {title}
         </h2>
       </div>
@@ -63,7 +64,7 @@ export default function Header({ fullName, role }: { fullName: string; role: str
         {/* Search mobile */}
         <div ref={searchRef} className="hdr-search-mobile" style={{ position: "relative" }}>
           {searchOpen ? (
-            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", background: "var(--color-surface-raised)", border: "1px solid var(--color-border)", borderRadius: "var(--radius-sm)", padding: "0.35rem 0.65rem" }}>
+            <div className="hdr-search-mobile-open">
               <Search size={15} style={{ color: "var(--color-text-muted)", flexShrink: 0 }} />
               <input autoFocus className="hdr-search-input" style={{ width: "140px" }} placeholder="Search…" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
               <button className="hdr-icon-btn" style={{ padding: "0.1rem" }} onClick={() => { setSearchOpen(false); setSearchQuery("") }}>
@@ -71,7 +72,7 @@ export default function Header({ fullName, role }: { fullName: string; role: str
               </button>
             </div>
           ) : (
-            <button className="hdr-icon-btn" onClick={() => setSearchOpen(true)} aria-label="Open search">
+            <button className="hdr-icon-btn md:hidden" onClick={() => setSearchOpen(true)} aria-label="Open search">
               <Search size={19} />
             </button>
           )}
@@ -110,9 +111,9 @@ export default function Header({ fullName, role }: { fullName: string; role: str
                 ))}
               </div>
               <div style={{ padding: "0.6rem 1rem", borderTop: "1px solid var(--color-border)" }}>
-                <button style={{ width: "100%", background: "none", border: "none", cursor: "pointer", fontSize: "var(--text-sm)", color: "var(--color-primary)", fontWeight: 500, padding: "0.25rem" }}>
+                <Link href="/notifications" onClick={() => setNotifOpen(false)} style={{ display: "block", width: "100%", textAlign: "center", fontSize: "var(--text-sm)", color: "var(--color-primary)", fontWeight: 500, padding: "0.25rem", textDecoration: "none" }}>
                   View all notifications
-                </button>
+                </Link>
               </div>
             </div>
           )}
@@ -139,7 +140,7 @@ export default function Header({ fullName, role }: { fullName: string; role: str
                 <p style={{ margin: "2px 0 0", fontSize: "12px", color: "var(--color-text-muted)" }}>{role.replace("_", " ")}</p>
               </div>
               <div className="hdr-divider" />
-              <button className="hdr-menu-item"><User size={15} /> My Profile</button>
+              <button className="hdr-menu-item"><User size={15} /><a href="/profile" style={{ textDecoration: "none", color: "inherit" }}>My Profile</a></button>
               <button className="hdr-menu-item"><Settings size={15} /> Settings</button>
               <div className="hdr-divider" />
               <button className="hdr-menu-item danger"><LogOut size={15} /> Sign Out</button>

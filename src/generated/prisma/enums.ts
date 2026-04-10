@@ -69,6 +69,42 @@ export const SubscriptionStatus = {
 export type SubscriptionStatus = (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus]
 
 
+export const ShiftType = {
+  MORNING: 'MORNING',
+  EVENING: 'EVENING',
+  FULL_DAY: 'FULL_DAY'
+} as const
+
+export type ShiftType = (typeof ShiftType)[keyof typeof ShiftType]
+
+
+export const AttendanceStatus = {
+  PRESENT: 'PRESENT',
+  ABSENT: 'ABSENT',
+  LATE: 'LATE',
+  HALF_DAY: 'HALF_DAY'
+} as const
+
+export type AttendanceStatus = (typeof AttendanceStatus)[keyof typeof AttendanceStatus]
+
+
+export const RosterStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED'
+} as const
+
+export type RosterStatus = (typeof RosterStatus)[keyof typeof RosterStatus]
+
+
+export const InquiryStatus = {
+  UNREAD: 'UNREAD',
+  READ: 'READ',
+  REPLIED: 'REPLIED'
+} as const
+
+export type InquiryStatus = (typeof InquiryStatus)[keyof typeof InquiryStatus]
+
+
 export const OrderStatus = {
   PENDING: 'PENDING',
   PAID: 'PAID',

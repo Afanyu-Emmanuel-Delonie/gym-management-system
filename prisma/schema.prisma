@@ -59,6 +59,8 @@ model Profile{
   clientAppointments  Appointment[]   @relation("ClientAppointments")
   coachAppointments   Appointment[]   @relation("CoachAppointments")
   testimonials        Testimonial[]
+  rosterShifts        RosterShift[]  @relation("StaffShifts")
+  attendance          Attendance[]   @relation("StaffAttendance")
 }
 
 // --- GYM & COACHES ---
@@ -144,7 +146,78 @@ model AccessCode {
   isUsed    Boolean  @default(false)
 }
 
+// --- HR & STAFF ---
+
+enum ShiftType {
+  MORNING   // e.g. 6am - 2pm
+  EVENING   // e.g. 2pm - 10pm
+  FULL_DAY  // e.g. 8am - 5pm
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  LATE
+  HALF_DAY
+}
+
+enum RosterStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model Roster {
+  id          String       @id @default(cuid())
+  weekStart   DateTime     // Monday of the week
+  status      RosterStatus @default(DRAFT)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  shifts      RosterShift[]
+}
+
+model RosterShift {
+  id          String    @id @default(cuid())
+  rosterId    String
+  roster      Roster    @relation(fields: [rosterId], references: [id], onDelete: Cascade)
+  staffId     String
+  staff       Profile   @relation("StaffShifts", fields: [staffId], references: [id], onDelete: Cascade)
+  day         Int       // 0=Mon, 1=Tue, 2=Wed, 3=Thu, 4=Fri, 5=Sat, 6=Sun
+  shift       ShiftType
+  startTime   String    // e.g. "06:00"
+  endTime     String    // e.g. "14:00"
+  note        String?
+}
+
+model Attendance {
+  id          String           @id @default(cuid())
+  staffId     String
+  staff       Profile          @relation("StaffAttendance", fields: [staffId], references: [id], onDelete: Cascade)
+  date        DateTime
+  checkIn     DateTime?
+  checkOut    DateTime?
+  status      AttendanceStatus @default(PRESENT)
+  note        String?
+  createdAt   DateTime         @default(now())
+}
+
 // --- UTILITIES ---
+
+enum InquiryStatus {
+  UNREAD
+  READ
+  REPLIED
+}
+
+model ContactInquiry {
+  id        String        @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  status    InquiryStatus @default(UNREAD)
+  createdAt DateTime      @default(now())
+}
 
 model GymService {
   id          String   @id @default(cuid())

@@ -58,6 +58,10 @@ export const ModelName = {
   Subscription: 'Subscription',
   Appointment: 'Appointment',
   AccessCode: 'AccessCode',
+  Roster: 'Roster',
+  RosterShift: 'RosterShift',
+  Attendance: 'Attendance',
+  ContactInquiry: 'ContactInquiry',
   GymService: 'GymService',
   Testimonial: 'Testimonial',
   Discount: 'Discount',
@@ -164,6 +168,59 @@ export const AccessCodeScalarFieldEnum = {
 } as const
 
 export type AccessCodeScalarFieldEnum = (typeof AccessCodeScalarFieldEnum)[keyof typeof AccessCodeScalarFieldEnum]
+
+
+export const RosterScalarFieldEnum = {
+  id: 'id',
+  weekStart: 'weekStart',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RosterScalarFieldEnum = (typeof RosterScalarFieldEnum)[keyof typeof RosterScalarFieldEnum]
+
+
+export const RosterShiftScalarFieldEnum = {
+  id: 'id',
+  rosterId: 'rosterId',
+  staffId: 'staffId',
+  day: 'day',
+  shift: 'shift',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  note: 'note'
+} as const
+
+export type RosterShiftScalarFieldEnum = (typeof RosterShiftScalarFieldEnum)[keyof typeof RosterShiftScalarFieldEnum]
+
+
+export const AttendanceScalarFieldEnum = {
+  id: 'id',
+  staffId: 'staffId',
+  date: 'date',
+  checkIn: 'checkIn',
+  checkOut: 'checkOut',
+  status: 'status',
+  note: 'note',
+  createdAt: 'createdAt'
+} as const
+
+export type AttendanceScalarFieldEnum = (typeof AttendanceScalarFieldEnum)[keyof typeof AttendanceScalarFieldEnum]
+
+
+export const ContactInquiryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  phone: 'phone',
+  subject: 'subject',
+  message: 'message',
+  status: 'status',
+  createdAt: 'createdAt'
+} as const
+
+export type ContactInquiryScalarFieldEnum = (typeof ContactInquiryScalarFieldEnum)[keyof typeof ContactInquiryScalarFieldEnum]
 
 
 export const GymServiceScalarFieldEnum = {
