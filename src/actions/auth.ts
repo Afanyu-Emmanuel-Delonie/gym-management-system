@@ -1,73 +1,72 @@
 "use server"
 
 import { redirect } from "next/navigation"
-import { createClient } from "../lib/supabase/server";
-import prisma from "../lib/prisma";
+import { createClient } from "../lib/supabase/server"
+import prisma from "../lib/prisma"
 
-export async function signUp(formatData: FormData){
-    const supabase = await createClient()
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-    const email = formatData.get("email") as string
-    const password = formatData.get("password") as string
-    const fullName = formatData.get("fullName") as string
-    const phoneNumber = formatData.get("phoneNumber") as string | null
+function sanitize(val: unknown, maxLen = 100): string {
+  return String(val ?? "").replace(/[\r\n<>]/g, "").trim().slice(0, maxLen)
+}
 
-    const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options:{
-            data: { 
-                full_name : fullName,
-                phone_number : phoneNumber,
-                role: "CLIENT"
-            }
-        }
+export async function signUp(formData: FormData) {
+  const supabase = await createClient()
+
+  const email       = sanitize(formData.get("email"), 254).toLowerCase()
+  const password    = String(formData.get("password") ?? "")
+  const fullName    = sanitize(formData.get("fullName"), 100)
+  const phoneNumber = formData.get("phoneNumber") ? sanitize(formData.get("phoneNumber"), 20) : null
+
+  if (!EMAIL_RE.test(email))  return { error: "Invalid email address." }
+  if (password.length < 8)    return { error: "Password must be at least 8 characters." }
+  if (fullName.length < 2)    return { error: "Full name is required." }
+
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: { full_name: fullName, phone_number: phoneNumber, role: "CLIENT" },
+    },
+  })
+
+  // Never expose raw Supabase error messages to the client
+  if (error) return { error: "Registration failed. Please try again." }
+
+  if (data.user) {
+    await prisma.profile.deleteMany({ where: { email, NOT: { id: data.user.id } } })
+    await prisma.profile.upsert({
+      where: { email },
+      update: { id: data.user.id, fullName, phoneNumber },
+      create: { id: data.user.id, email, fullName, phoneNumber, role: "CLIENT" },
     })
+  }
 
-    if (error) return { error : error.message}
-
-
-    // creating user profile 
-    if(data.user){
-        // Clean up any orphaned profile with same email (deleted from auth but still in DB)
-        await prisma.profile.deleteMany({ where: { email, NOT: { id: data.user.id } } })
-        
-        await prisma.profile.upsert({
-            where: { email },
-            update: { id: data.user.id, fullName, phoneNumber },
-            create: {
-                id: data.user.id,
-                email,
-                fullName,
-                phoneNumber,
-                role: "CLIENT"
-            }
-        })
-    }
-
-    return redirect("/login") 
+  return redirect("/login")
 }
 
 export async function login(formData: FormData) {
   const supabase = await createClient()
-  const email = formData.get("email") as string
-  const password = formData.get("password") as string
+
+  const email    = sanitize(formData.get("email"), 254).toLowerCase()
+  const password = String(formData.get("password") ?? "")
+
+  if (!EMAIL_RE.test(email) || !password) {
+    return { error: "Invalid email or password. Please try again." }
+  }
 
   const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+
+  // Generic error — never reveal whether email exists or not (prevents user enumeration)
   if (error) return { error: "Invalid email or password. Please try again." }
 
-  const userProfile = await prisma.profile.findUnique({
-    where: { id: data.user.id }
-  })
+  // Role from DB — never trust JWT user_metadata for authorization decisions
+  const profile = await prisma.profile.findUnique({ where: { id: data.user.id } })
 
-  switch (userProfile?.role) {
-    case 'ADMIN':
-      return redirect('/admin/dashboard')
-    case 'SALES_AGENT':
-      return redirect('/agent/dashboard')
-    case 'COACH':
-      return redirect('/coach/schedule')
-    default:
-      return redirect('/login')
+  switch (profile?.role) {
+    case "ADMIN":       return redirect("/admin/dashboard")
+    case "SALES_AGENT": return redirect("/agent/dashboard")
+    case "COACH":       return redirect("/coach/dashboard")
+    default:            return redirect("/login")
   }
 }

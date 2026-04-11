@@ -1,6 +1,7 @@
 export async function processMockPayment(amount: number) {
-  console.log(`Processing mock payment of ${amount} RWF...`)
-  
+  const safeAmount = Number.isFinite(amount) ? Math.round(amount) : 0
+  console.log(`Processing mock payment of ${safeAmount} RWF...`)
+
   await new Promise((resolve) => setTimeout(resolve, 2000))
 
   const success = Math.random() > 0.05

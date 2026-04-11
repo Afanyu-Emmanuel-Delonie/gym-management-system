@@ -17,7 +17,8 @@ export default function LoginPage() {
     const formData = new FormData(e.currentTarget)
     startTransition(async () => {
       const result = await login(formData)
-      if (result?.error) showToast(result.error, "error")
+      // Sanitize error message — strip newlines/HTML before displaying to prevent log injection / XSS
+      if (result?.error) showToast(String(result.error).replace(/[\r\n<>]/g, " ").slice(0, 200), "error")
     })
   }
 
